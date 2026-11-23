@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/zones/BossArena.gd" id="1_script"]
+[ext_resource type="Script" path="res://scenes/zones/ArenaExitTrigger.gd" id="2_exit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(40, 22)
+
+[node name="BossArena" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="GroundLayer" type="TileMapLayer" parent="."]
+z_index = -2
+
+[node name="WallLayer" type="TileMapLayer" parent="."]
+z_index = -1
+
+[node name="Entities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(240, 296)
+
+[node name="BossSpawn" type="Marker2D" parent="."]
+position = Vector2(240, 96)
+
+[node name="ExitGateArea" type="Area2D" parent="."]
+position = Vector2(240, 340)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("2_exit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitGateArea"]
+shape = SubResource("RectangleShape2D_exit")

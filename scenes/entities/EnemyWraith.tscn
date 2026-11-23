@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/entities/EnemyWraith.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/characters/tiny_dungeon_tile_0121.png" id="2_sprite"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 5.5
+
+[node name="EnemyWraith" type="CharacterBody2D"]
+z_index = 12
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_body")
+
+[node name="VisualPivot" type="Node2D" parent="."]
+
+[node name="Shadow" type="Polygon2D" parent="VisualPivot"]
+position = Vector2(0, 9)
+color = Color(0.18, 0.08, 0.28, 0.35)
+polygon = PackedVector2Array(-5, 0, -3, -2, 3, -2, 5, 0, 3, 2, -3, 2)
+
+[node name="BodySprite" type="Sprite2D" parent="VisualPivot"]
+modulate = Color(0.78, 0.92, 1.15, 0.86)
+texture = ExtResource("2_sprite")
+
+[node name="HPBarBG" type="ColorRect" parent="."]
+visible = false
+offset_left = -7.0
+offset_top = -14.0
+offset_right = 7.0
+offset_bottom = -11.0
+color = Color(0.12, 0.07, 0.1, 0.9)
+
+[node name="HPBarFill" type="ColorRect" parent="HPBarBG"]
+layout_mode = 0
+offset_right = 14.0
+offset_bottom = 3.0
+color = Color(0.75, 0.35, 1, 1)

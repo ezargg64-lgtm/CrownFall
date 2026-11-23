@@ -1,0 +1,131 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scenes/entities/Player.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/characters/tiny_dungeon_tile_0098.png" id="2_body"]
+[ext_resource type="Texture2D" path="res://assets/ui/tiny_dungeon_tile_0103.png" id="3_sword"]
+[ext_resource type="Texture2D" path="res://assets/ui/tiny_dungeon_tile_0101.png" id="4_shield"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sword"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_spin"]
+radius = 36.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_parry"]
+radius = 15.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_body")
+
+[node name="VisualPivot" type="Node2D" parent="."]
+
+[node name="Shadow" type="Polygon2D" parent="VisualPivot"]
+position = Vector2(0, 7)
+color = Color(0, 0, 0, 0.3)
+polygon = PackedVector2Array(-5, 0, -3, -2, 3, -2, 5, 0, 3, 2, -3, 2)
+
+[node name="ParryRing" type="Polygon2D" parent="VisualPivot"]
+visible = false
+z_index = -1
+color = Color(1, 0.88, 0.25, 0.55)
+polygon = PackedVector2Array(14, 0, 12.1, 7, 7, 12.1, 0, 14, -7, 12.1, -12.1, 7, -14, 0, -12.1, -7, -7, -12.1, 0, -14, 7, -12.1, 12.1, -7)
+
+[node name="SlashArc" type="Line2D" parent="VisualPivot"]
+visible = false
+points = PackedVector2Array(0, -16, 11, -11, 16, 0, 11, 11, 0, 16)
+width = 3.0
+default_color = Color(1, 0.96, 0.72, 0.9)
+
+[node name="BodySprite" type="Sprite2D" parent="VisualPivot"]
+texture = ExtResource("2_body")
+
+[node name="WeaponPivot" type="Node2D" parent="VisualPivot"]
+position = Vector2(6, 1)
+
+[node name="WeaponSprite" type="Sprite2D" parent="VisualPivot/WeaponPivot"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_sword")
+
+[node name="ShieldPivot" type="Node2D" parent="VisualPivot"]
+position = Vector2(-6, 2)
+
+[node name="ShieldSprite" type="Sprite2D" parent="VisualPivot/ShieldPivot"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_shield")
+
+[node name="DashParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 10
+lifetime = 0.35
+one_shot = true
+explosiveness = 0.85
+direction = Vector2(0, -1)
+spread = 160.0
+gravity = Vector2(0, 20)
+initial_velocity_min = 12.0
+initial_velocity_max = 28.0
+scale_amount_min = 1.5
+scale_amount_max = 2.8
+color = Color(0.88, 0.84, 0.75, 0.85)
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_interact")
+
+[node name="SwordHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
+shape = SubResource("CircleShape2D_sword")
+
+[node name="SpinHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpinHitbox"]
+shape = SubResource("CircleShape2D_spin")
+
+[node name="ParryArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParryArea"]
+shape = SubResource("CircleShape2D_parry")
+
+[node name="PromptLabel" type="Label" parent="."]
+visible = false
+z_index = 25
+offset_left = -70.0
+offset_top = -24.0
+offset_right = 70.0
+offset_bottom = -10.0
+theme_override_colors/font_color = Color(1, 0.96, 0.78, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.05, 0.08, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 7
+text = "[E] Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0

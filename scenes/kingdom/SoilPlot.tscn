@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/kingdom/SoilPlot.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/tiles/tiny_town_tile_0025.png" id="2_soil"]
+[ext_resource type="Texture2D" path="res://assets/tiles/tiny_town_tile_0017.png" id="3_crop"]
+[ext_resource type="Texture2D" path="res://assets/buildings/tiny_town_tile_0081.png" id="4_lock"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_interact"]
+size = Vector2(16, 16)
+
+[node name="SoilPlot" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="SoilSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_soil")
+
+[node name="CropSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -2)
+texture = ExtResource("3_crop")
+
+[node name="LockSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("4_lock")
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_interact")
+
+[node name="FXParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 10
+lifetime = 0.45
+one_shot = true
+explosiveness = 0.85
+direction = Vector2(0, -1)
+spread = 110.0
+gravity = Vector2(0, 90)
+initial_velocity_min = 18.0
+initial_velocity_max = 36.0
+scale_amount_min = 1.5
+scale_amount_max = 2.5
+color = Color(1, 0.88, 0.32, 1)

@@ -1,0 +1,325 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/HUD.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/tiny_dungeon_tile_0115.png" id="2_flask"]
+[ext_resource type="Texture2D" path="res://assets/crops/tiny_town_tile_0093.png" id="3_gold"]
+[ext_resource type="Texture2D" path="res://assets/crops/tiny_town_tile_0094.png" id="4_crop"]
+[ext_resource type="Texture2D" path="res://assets/ui/tiny_dungeon_tile_0130.png" id="5_mshard"]
+[ext_resource type="Texture2D" path="res://assets/ui/tiny_dungeon_tile_0129.png" id="6_bshard"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 5.0
+content_margin_top = 4.0
+content_margin_right = 5.0
+content_margin_bottom = 4.0
+bg_color = Color(0.08, 0.07, 0.11, 0.82)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.32, 0.28, 0.38, 0.9)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
+bg_color = Color(0.165, 0.086, 0.11, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.059, 0.047, 0.071, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
+bg_color = Color(0.851, 0.22, 0.22, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_royal_fill"]
+bg_color = Color(0.902, 0.722, 0.227, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_boss_fill"]
+bg_color = Color(0.68, 0.18, 0.85, 1)
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="TopLeftPanel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 136.0
+offset_bottom = 36.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="TopLeftPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="HPRow" type="HBoxContainer" parent="TopLeftPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HPBar" type="ProgressBar" parent="TopLeftPanel/VBox/HPRow"]
+custom_minimum_size = Vector2(84, 11)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
+value = 100.0
+show_percentage = false
+
+[node name="HPValueLabel" type="Label" parent="TopLeftPanel/VBox/HPRow/HPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.96, 0.96, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.04, 0.07, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "100 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FlaskIcon" type="TextureRect" parent="TopLeftPanel/VBox/HPRow"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_flask")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="FlaskCountLabel" type="Label" parent="TopLeftPanel/VBox/HPRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 7
+text = "x1"
+vertical_alignment = 1
+
+[node name="RoyalBar" type="ProgressBar" parent="TopLeftPanel/VBox"]
+custom_minimum_size = Vector2(84, 5)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_royal_fill")
+value = 0.0
+show_percentage = false
+
+[node name="TopRightPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -126.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = 36.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="TopRightPanel"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="DayTimeLabel" type="Label" parent="TopRightPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.95, 0.82, 1)
+theme_override_font_sizes/font_size = 7
+text = "Day 1 • Morning"
+horizontal_alignment = 2
+
+[node name="KingdomLabel" type="Label" parent="TopRightPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 7
+text = "Kingdom: 0/4"
+horizontal_alignment = 2
+
+[node name="BottomLeftPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -26.0
+offset_right = 176.0
+offset_bottom = -6.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="HBox" type="HBoxContainer" parent="BottomLeftPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="GoldIcon" type="TextureRect" parent="BottomLeftPanel/HBox"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_gold")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GoldLabel" type="Label" parent="BottomLeftPanel/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.35, 1)
+theme_override_font_sizes/font_size = 7
+text = "20"
+
+[node name="CropIcon" type="TextureRect" parent="BottomLeftPanel/HBox"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_crop")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CropsLabel" type="Label" parent="BottomLeftPanel/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76, 0.96, 0.58, 1)
+theme_override_font_sizes/font_size = 7
+text = "0"
+
+[node name="MonsterShardIcon" type="TextureRect" parent="BottomLeftPanel/HBox"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_mshard")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MonsterShardLabel" type="Label" parent="BottomLeftPanel/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 7
+text = "0"
+
+[node name="BlightShardIcon" type="TextureRect" parent="BottomLeftPanel/HBox"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("6_bshard")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BlightShardLabel" type="Label" parent="BottomLeftPanel/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.65, 1, 1)
+theme_override_font_sizes/font_size = 7
+text = "0"
+
+[node name="ControlsHint" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -268.0
+offset_top = -18.0
+offset_right = -6.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 0.85)
+theme_override_colors/font_outline_color = Color(0.05, 0.05, 0.08, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "WASD/Stick: Move  •  E/A: Interact"
+horizontal_alignment = 2
+
+[node name="BuffLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 6.0
+offset_top = 38.0
+offset_right = 148.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(1, 0.88, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.04, 0.07, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "SECOND WIND 30s"
+
+[node name="ToastPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -48.0
+offset_right = 140.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="ToastLabel" type="Label" parent="ToastPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.96, 0.78, 1)
+theme_override_font_sizes/font_size = 7
+text = "Welcome to Crownfall!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BossBarPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -98.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 34.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="BossBarPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="BossTitle" type="Label" parent="BossBarPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.72, 1, 1)
+theme_override_font_sizes/font_size = 6
+text = "THE USURPER"
+horizontal_alignment = 1
+
+[node name="BossHPBar" type="ProgressBar" parent="BossBarPanel/VBox"]
+custom_minimum_size = Vector2(0, 9)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_boss_fill")
+max_value = 350.0
+value = 350.0
+show_percentage = false
+
+[node name="BossHPLabel" type="Label" parent="BossBarPanel/VBox/BossHPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.96, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.04, 0.07, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "350 / 350"
+horizontal_alignment = 1
+vertical_alignment = 1

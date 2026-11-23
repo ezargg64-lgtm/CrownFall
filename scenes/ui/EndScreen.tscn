@@ -1,0 +1,117 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/EndScreen.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+bg_color = Color(0.075, 0.065, 0.115, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.62, 0.52, 0.32, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_controls"]
+content_margin_left = 8.0
+content_margin_top = 5.0
+content_margin_right = 8.0
+content_margin_bottom = 5.0
+bg_color = Color(0.11, 0.10, 0.16, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.30, 0.42, 1)
+
+[node name="EndScreen" type="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("1_script")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.025, 0.055, 0.72)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(348, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.38, 1)
+theme_override_font_sizes/font_size = 11
+text = "CROWNFALL: THE HUMBLED KING"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.86, 0.95, 1)
+theme_override_font_sizes/font_size = 7
+text = "Rebuild the ruined village. Bounce back the Usurper."
+horizontal_alignment = 1
+
+[node name="BodyLabel" type="Label" parent="CenterContainer/Panel/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.93, 0.88, 1)
+theme_override_font_sizes/font_size = 7
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ControlsCard" type="PanelContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_controls")
+
+[node name="ControlsText" type="Label" parent="CenterContainer/Panel/VBox/ControlsCard"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.90, 0.96, 1)
+theme_override_font_sizes/font_size = 6
+text = "CONTROLS (KEYBOARD / GAMEPAD)
+Move: WASD or Arrows / Left Stick or D-Pad
+Interact / Farm / Talk: E or Enter / A (Cross)
+Sword Slash: J or Z / X (Square)
+Bounce Shield Parry: K or Space / B (Circle) or LB
+Dodge Roll: L or Shift / A or RB
+Spin Slash: U or Q / Y (Triangle)   |   Flask: I or R / LT or RT
+Pause: Escape / Start"
+horizontal_alignment = 1
+
+[node name="ButtonsVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="FooterHint" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.76, 0.86, 0.9)
+theme_override_font_sizes/font_size = 6
+text = "[Up/Down/Stick] Navigate  •  [Enter/E/A] Select"
+horizontal_alignment = 1

@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scenes/kingdom/BuildingPlot.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/entities/VillagerNPC.tscn" id="2_villager"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(44, 36)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 22.0
+
+[node name="BuildingPlot" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="RuinedVisual" type="Node2D" parent="."]
+
+[node name="RestoredVisual" type="Node2D" parent="."]
+visible = false
+
+[node name="VillagerNPC" parent="." instance=ExtResource("2_villager")]
+visible = false
+position = Vector2(24, 24)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="InteractArea" type="Area2D" parent="."]
+position = Vector2(0, 22)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="CostLabel" type="Label" parent="."]
+z_index = 15
+offset_left = -56.0
+offset_top = -46.0
+offset_right = 56.0
+offset_bottom = -22.0
+theme_override_colors/font_color = Color(0.95, 0.88, 0.85, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.05, 0.08, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 6
+text = "Building\nCost"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RebuildParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 26
+lifetime = 0.75
+one_shot = true
+explosiveness = 0.9
+direction = Vector2(0, -1)
+spread = 160.0
+gravity = Vector2(0, 60)
+initial_velocity_min = 24.0
+initial_velocity_max = 60.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.98, 0.9, 0.62, 1)

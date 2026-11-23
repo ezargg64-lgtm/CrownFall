@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/zones/WildFrontier.gd" id="1_script"]
+[ext_resource type="Script" path="res://scenes/zones/SouthGateTrigger.gd" id="2_south"]
+[ext_resource type="Script" path="res://scenes/zones/BossGateTrigger.gd" id="3_boss"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_south"]
+size = Vector2(44, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_boss"]
+size = Vector2(44, 24)
+
+[node name="WildFrontier" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="GroundLayer" type="TileMapLayer" parent="."]
+z_index = -2
+
+[node name="WallLayer" type="TileMapLayer" parent="."]
+z_index = -1
+
+[node name="Entities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(352, 452)
+
+[node name="BossReturnSpawn" type="Marker2D" parent="."]
+position = Vector2(352, 56)
+
+[node name="SouthGateArea" type="Area2D" parent="."]
+position = Vector2(352, 496)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("2_south")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SouthGateArea"]
+shape = SubResource("RectangleShape2D_south")
+
+[node name="BossGateArea" type="Area2D" parent="."]
+position = Vector2(352, 24)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("3_boss")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossGateArea"]
+shape = SubResource("RectangleShape2D_boss")

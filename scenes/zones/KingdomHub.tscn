@@ -1,0 +1,121 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scenes/zones/KingdomHub.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/kingdom/SoilPlot.tscn" id="2_soil"]
+[ext_resource type="PackedScene" path="res://scenes/kingdom/SleepBed.tscn" id="3_bed"]
+[ext_resource type="PackedScene" path="res://scenes/kingdom/ShippingCrate.tscn" id="4_crate"]
+[ext_resource type="PackedScene" path="res://scenes/kingdom/BuildingPlot.tscn" id="5_building"]
+[ext_resource type="Script" path="res://scenes/zones/NorthGateTrigger.gd" id="6_gate"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]
+size = Vector2(36, 18)
+
+[node name="KingdomHub" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="GroundLayer" type="TileMapLayer" parent="."]
+z_index = -2
+
+[node name="WallLayer" type="TileMapLayer" parent="."]
+z_index = -1
+
+[node name="SoilPlots" type="Node2D" parent="."]
+
+[node name="StarterPlot0" parent="SoilPlots" instance=ExtResource("2_soil")]
+position = Vector2(120, 248)
+plot_id = "starter_0"
+
+[node name="StarterPlot1" parent="SoilPlots" instance=ExtResource("2_soil")]
+position = Vector2(144, 248)
+plot_id = "starter_1"
+
+[node name="StarterPlot2" parent="SoilPlots" instance=ExtResource("2_soil")]
+position = Vector2(168, 248)
+plot_id = "starter_2"
+
+[node name="FarmPlot0" parent="SoilPlots" instance=ExtResource("2_soil")]
+position = Vector2(224, 344)
+plot_id = "farm_0"
+requires_farmstead = true
+
+[node name="FarmPlot1" parent="SoilPlots" instance=ExtResource("2_soil")]
+position = Vector2(248, 344)
+plot_id = "farm_1"
+requires_farmstead = true
+
+[node name="FarmPlot2" parent="SoilPlots" instance=ExtResource("2_soil")]
+position = Vector2(272, 344)
+plot_id = "farm_2"
+requires_farmstead = true
+
+[node name="FarmPlot3" parent="SoilPlots" instance=ExtResource("2_soil")]
+position = Vector2(224, 368)
+plot_id = "farm_3"
+requires_farmstead = true
+
+[node name="FarmPlot4" parent="SoilPlots" instance=ExtResource("2_soil")]
+position = Vector2(248, 368)
+plot_id = "farm_4"
+requires_farmstead = true
+
+[node name="FarmPlot5" parent="SoilPlots" instance=ExtResource("2_soil")]
+position = Vector2(272, 368)
+plot_id = "farm_5"
+requires_farmstead = true
+
+[node name="Entities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="SleepBed" parent="Entities" instance=ExtResource("3_bed")]
+position = Vector2(266, 150)
+
+[node name="ShippingCrate" parent="Entities" instance=ExtResource("4_crate")]
+position = Vector2(194, 248)
+
+[node name="GatehousePlot" parent="Entities" instance=ExtResource("5_building")]
+position = Vector2(128, 84)
+building_id = "gatehouse"
+
+[node name="ForgePlot" parent="Entities" instance=ExtResource("5_building")]
+position = Vector2(504, 84)
+building_id = "forge"
+
+[node name="ApothecaryPlot" parent="Entities" instance=ExtResource("5_building")]
+position = Vector2(504, 248)
+building_id = "apothecary"
+
+[node name="FarmsteadPlot" parent="Entities" instance=ExtResource("5_building")]
+position = Vector2(136, 344)
+building_id = "farmstead"
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(320, 232)
+
+[node name="NorthReturnSpawn" type="Marker2D" parent="."]
+position = Vector2(320, 50)
+
+[node name="NorthGateTrigger" type="Area2D" parent="."]
+position = Vector2(320, 22)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("6_gate")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NorthGateTrigger"]
+shape = SubResource("RectangleShape2D_gate")
+
+[node name="Fireflies" type="CPUParticles2D" parent="."]
+z_index = 20
+position = Vector2(320, 224)
+emitting = false
+amount = 28
+lifetime = 3.5
+emission_shape = 3
+emission_rect_extents = Vector2(260, 170)
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, -4)
+initial_velocity_min = 4.0
+initial_velocity_max = 12.0
+scale_amount_min = 1.5
+scale_amount_max = 2.5
+color = Color(0.95, 0.98, 0.55, 0.85)
